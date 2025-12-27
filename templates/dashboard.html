@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - AI Vision{% endblock %}
+
+{% block content %}
+<!-- Animated gradient background -->
+<div class="animated-bg"></div>
+
+<!-- Floating blurred blobs -->
+<div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- Floating glass shapes -->
+<div class="glass-shape glass-shape-1"></div>
+<div class="glass-shape glass-shape-2"></div>
+<div class="glass-shape glass-shape-3"></div>
+<div class="glass-shape glass-shape-4"></div>
+
+<div class="min-h-screen" style="position: relative; z-index: 1;">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+                        AI Vision
+                    </h1>
+                    <div class="hidden md:flex space-x-4">
+                        <a href="{{ url_for('dashboard_home') }}" 
+                           class="nav-link px-4 py-2 rounded-lg text-sm font-medium hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300 transform hover:scale-105"
+                           data-page="home">Home</a>
+                        <a href="{{ url_for('dashboard_features') }}" 
+                           class="nav-link px-4 py-2 rounded-lg text-sm font-medium hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300 transform hover:scale-105"
+                           data-page="features">Features</a>
+                        <a href="{{ url_for('dashboard_upload') }}" 
+                           class="nav-link px-4 py-2 rounded-lg text-sm font-medium hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300 transform hover:scale-105"
+                           data-page="upload">Upload Video</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-700 font-medium">Hi, {{ session.user_name }}!</span>
+                    <a href="{{ url_for('logout') }}" 
+                       class="bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-5 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area with White Background -->
+    <div class="bg-white min-h-screen">
+        <div id="content-area" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="fade-in zoom-in">
+                {% block dashboard_content %}
+                <!-- Default content - will be replaced by AJAX -->
+                <div class="text-center py-12">
+                    <div class="spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600">Loading...</p>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/dashboard.js"></script>
+
+<script>
+    // Load initial page
+    window.addEventListener('DOMContentLoaded', () => {
+        loadPage('home');
+    });
+
+    // Handle navigation clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = e.target.dataset.page;
+            loadPage(page);
+            
+            // Update active state
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('bg-blue-100', 'text-blue-700'));
+            e.target.classList.add('bg-blue-100', 'text-blue-700');
+        });
+    });
+
+    async function loadPage(page) {
+        const contentArea = document.getElementById('content-area');
+        
+        try {
+            const response = await fetch(`/dashboard/${page}`);
+            const html = await response.text();
+            contentArea.innerHTML = html;
+            contentArea.classList.remove('fade-in', 'zoom-in');
+            void contentArea.offsetWidth; // Trigger reflow
+            contentArea.classList.add('fade-in', 'zoom-in');
+            
+            // Re-initialize scripts if upload page
+            if (page === 'upload' && typeof initUploadPage === 'function') {
+                initUploadPage();
+            }
+        } catch (error) {
+            contentArea.innerHTML = `<div class="text-red-600">Error loading page: ${error.message}</div>`;
+        }
+    }
+</script>
+{% endblock %}

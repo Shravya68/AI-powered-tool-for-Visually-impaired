@@ -1,0 +1,128 @@
+/* AI Vision - Additional Styles for Upload Page */
+/* This file provides fallback styles if dashboard.css is not loaded */
+
+/* Ensure upload page is never unstyled */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Progress bar */
+#progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* Drag over state */
+.drag-over {
+    border-color: #7c3aed !important;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(168, 85, 247, 0.15)) !important;
+    transform: scale(1.02);
+}
+
+/* Status region visibility */
+.status-region {
+    display: none;
+}
+
+.status-region.status-uploading,
+.status-region.status-processing,
+.status-region.status-complete,
+.status-region.status-error,
+.status-region.status-info {
+    display: block;
+}
+
+/* Hidden utility */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive video preview */
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Audio player styling */
+audio {
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Button hover states */
+button:hover,
+a.btn-cta:hover {
+    opacity: 0.9;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Transcript text area */
+#transcript-text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .upload-container {
+        padding: 10px;
+    }
+    
+    .upload-panel {
+        padding: 20px 15px;
+    }
+    
+    .drag-drop-zone {
+        padding: 40px 20px;
+    }
+    
+    button,
+    .btn-cta {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+/* Accessibility - Focus states */
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid #4f46e5;
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    button,
+    .btn-cta {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Print styles */
+@media print {
+    .upload-container,
+    button,
+    .btn-cta {
+        display: none;
+    }
+    
+    #results-section {
+        display: block !important;
+    }
+}

@@ -1,0 +1,72 @@
+<!-- Hero Section - Welcome message -->
+<section class="text-center py-12 px-4">
+    <div class="inline-flex items-center justify-center gap-4 mb-6">
+        <span class="text-5xl animate-pulse" aria-hidden="true">🔊</span>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
+            Welcome to AI Vision
+        </h1>
+    </div>
+    <h2 class="text-2xl text-gray-700 font-medium mb-4 max-w-3xl mx-auto">
+        Get intelligent real-time assistance through AI-powered video narration.
+    </h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Designed for accessibility and independence.
+    </p>
+</section>
+
+<!-- Feature cards with modern design -->
+<div class="grid md:grid-cols-3 gap-8 px-4 mb-12">
+    <div class="group bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2" role="article" tabindex="0">
+        <div class="text-5xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">🎥</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">Upload Videos</h3>
+        <p class="text-gray-600 leading-relaxed">
+            Upload video files from your device for intelligent AI-powered processing and narration
+        </p>
+        <div class="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500 rounded-full"></div>
+    </div>
+    
+    <div class="group bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2" role="article" tabindex="0">
+        <div class="text-5xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">📹</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-purple-600 transition-colors">Record Live</h3>
+        <p class="text-gray-600 leading-relaxed">
+            Record videos directly using your camera for instant real-time assistance
+        </p>
+        <div class="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-500 rounded-full"></div>
+    </div>
+    
+    <div class="group bg-gradient-to-br from-teal-50 to-green-100 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2" role="article" tabindex="0">
+        <div class="text-5xl mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" aria-hidden="true">🎵</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-teal-600 transition-colors">Extract Audio</h3>
+        <p class="text-gray-600 leading-relaxed">
+            Get audio tracks and intelligent transcripts from your videos
+        </p>
+        <div class="mt-4 h-1 w-0 group-hover:w-full bg-gradient-to-r from-teal-500 to-green-500 transition-all duration-500 rounded-full"></div>
+    </div>
+</div>
+
+<!-- CTA section -->
+<section class="text-center py-12 px-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl mx-4 mb-8">
+    <h3 class="text-3xl font-bold text-gray-800 mb-4">Ready to get started?</h3>
+    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Upload or record your first video and let AI Vision guide you.
+    </p>
+    <a href="{{ url_for('dashboard_upload') }}" 
+       class="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 text-white px-10 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:via-purple-700 hover:to-violet-700 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl" 
+       role="button" 
+       aria-label="Upload Video to start processing">
+        Upload Video
+    </a>
+</section>
+
+<script>
+// Ensure all CTAs navigate to the same upload page
+document.addEventListener('DOMContentLoaded', function() {
+    const uploadLinks = document.querySelectorAll('a[href*="upload"]');
+    uploadLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Let the navigation happen naturally - all links point to same route
+            console.log('Navigating to upload page:', this.href);
+        });
+    });
+});
+</script>
